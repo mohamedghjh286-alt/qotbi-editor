@@ -1,46 +1,306 @@
 <!DOCTYPE html>
-<html lang="ar">
+<html lang="ar" dir="rtl">
 <head>
-<meta charset="UTF-8">
-<title>Qotbi Editor | قطبي مونتير فيديو</title>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Qotbi Editor | قطبي</title>
+  <meta name="description" content="Qotbi Editor | قطبي - مونتير محترف. تيك توك، يوتيوب، واتساب."/>
+  <meta name="keywords" content="qotbi editor, قطبي, قطبي ايدتور, مونتاج, video editor, Qotbi, qotbi.online"/>
+  <meta name="author" content="Qotbi Editor"/>
+  <meta property="og:title" content="Qotbi Editor | قطبي"/>
+  <meta property="og:description" content="مونتير محترف - تابعني على منصاتي"/>
+  <meta property="og:type" content="website"/>
+  <meta property="og:url" content="https://qotbi.online"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Cairo:wght@300;400;500;600&display=swap" rel="stylesheet"/>
 
-<meta name="description" content="Qotbi Editor - قطبي مونتير محترف لفيديوهات تيك توك ويوتيوب">
-<meta name="keywords" content="Qotbi, Qotbi Editor, قطبي, مونتاج, Video Editor, TikTok, YouTube">
-<meta name="author" content="Qotbi Editor">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    :root {
+      --black:   #090907;
+      --card-bg: #0f0e0b;
+      --gold:    #c9a84c;
+      --gold2:   #e8cc7a;
+      --gold3:   #f5e2a8;
+      --dim:     #5a5440;
+      --line:    rgba(201,168,76,0.18);
+      --text:    #f0ead6;
+      --radius:  4px;
+    }
 
-<meta property="og:title" content="Qotbi Editor">
-<meta property="og:description" content="Video Editor | TikTok & YouTube">
-<meta property="og:image" content="profile.jpg">
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-<link rel="stylesheet" href="style.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    body {
+      background: var(--black);
+      color: var(--text);
+      font-family: 'Cairo', sans-serif;
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      padding: 2rem 1rem;
+    }
+
+    /* subtle grain */
+    body::before {
+      content: '';
+      position: fixed; inset: 0; z-index: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      opacity: 0.035;
+      pointer-events: none;
+    }
+
+    /* ─── CARD ──────────────────────────────── */
+    .card {
+      position: relative; z-index: 1;
+      background: var(--card-bg);
+      border: 1px solid var(--line);
+      width: 100%;
+      max-width: 380px;          /* mobile */
+      padding: 3rem 2.4rem 2.4rem;
+      animation: appear .7s ease both;
+    }
+
+    /* desktop: wider card */
+    @media (min-width: 600px) {
+      .card { max-width: 520px; padding: 3.5rem 3.2rem 3rem; }
+    }
+
+    /* corner ornaments */
+    .card::before, .card::after {
+      content: '';
+      position: absolute;
+      width: 18px; height: 18px;
+      border-color: var(--gold);
+      border-style: solid;
+    }
+    .card::before { top: 12px; right: 12px; border-width: 1px 1px 0 0; }
+    .card::after  { bottom: 12px; left: 12px; border-width: 0 0 1px 1px; }
+
+    /* extra corners via pseudo on inner wrapper */
+    .card-inner::before, .card-inner::after {
+      content: '';
+      position: absolute;
+      width: 18px; height: 18px;
+      border-color: var(--gold);
+      border-style: solid;
+    }
+    .card-inner::before { top: 12px; left: 12px; border-width: 1px 0 0 1px; }
+    .card-inner::after  { bottom: 12px; right: 12px; border-width: 0 1px 1px 0; }
+
+    .card-inner { position: relative; }
+
+    @keyframes appear {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ─── TOP ROW ───────────────────────────── */
+    .top-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 2rem;
+    }
+
+    .monogram {
+      width: 58px; height: 58px;
+      border: 1px solid var(--gold);
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Playfair Display', serif;
+      font-size: 1.7rem; font-weight: 700;
+      color: var(--gold2);
+      flex-shrink: 0;
+      position: relative;
+    }
+    /* inner shadow glow */
+    .monogram::after {
+      content: '';
+      position: absolute; inset: 3px;
+      border: 1px solid rgba(201,168,76,0.12);
+    }
+
+    @media (min-width: 600px) {
+      .monogram { width: 70px; height: 70px; font-size: 2rem; }
+    }
+
+    .title-block { text-align: left; }
+
+    .name {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.6rem, 5vw, 2.2rem);
+      font-weight: 700;
+      letter-spacing: 3px;
+      color: var(--gold3);
+      line-height: 1;
+      text-transform: uppercase;
+    }
+    .name-ar {
+      font-size: 0.78rem;
+      color: var(--dim);
+      font-weight: 300;
+      letter-spacing: 2px;
+      margin-top: 0.3rem;
+    }
+
+    /* ─── DIVIDER ───────────────────────────── */
+    .divider {
+      display: flex; align-items: center; gap: 0.8rem;
+      margin: 0 0 1.8rem;
+    }
+    .divider-line { flex: 1; height: 1px; background: var(--line); }
+    .divider-diamond {
+      width: 5px; height: 5px;
+      background: var(--gold);
+      transform: rotate(45deg);
+      flex-shrink: 0;
+    }
+
+    /* ─── ROLE TAG ───────────────────────────── */
+    .role {
+      font-size: 0.62rem;
+      color: var(--gold);
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      font-weight: 500;
+      margin-bottom: 2rem;
+      text-align: center;
+    }
+
+    /* ─── LINKS ─────────────────────────────── */
+    .links { display: flex; flex-direction: column; gap: 0; }
+
+    .link-row {
+      display: flex; align-items: center;
+      gap: 1rem;
+      padding: 0.9rem 0;
+      border-bottom: 1px solid var(--line);
+      text-decoration: none;
+      color: var(--text);
+      transition: padding-right 0.2s;
+      animation: rowIn 0.5s ease both;
+    }
+    .link-row:last-child { border-bottom: none; }
+    .link-row:hover { padding-right: 6px; }
+    .link-row:hover .link-platform { color: var(--gold2); }
+    .link-row:hover .link-arrow { color: var(--gold); opacity: 1; }
+
+    .link-row:nth-child(1) { animation-delay: 0.15s; }
+    .link-row:nth-child(2) { animation-delay: 0.25s; }
+    .link-row:nth-child(3) { animation-delay: 0.35s; }
+
+    @keyframes rowIn {
+      from { opacity: 0; transform: translateX(12px); }
+      to   { opacity: 1; transform: translateX(0); }
+    }
+
+    .link-icon {
+      width: 36px; height: 36px;
+      border: 1px solid var(--line);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+      transition: border-color 0.2s;
+    }
+    .link-row:hover .link-icon { border-color: rgba(201,168,76,0.4); }
+    .link-icon svg { width: 16px; height: 16px; fill: var(--gold); }
+
+    .link-text { flex: 1; }
+    .link-platform {
+      font-size: 0.6rem;
+      color: var(--dim);
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      font-weight: 400;
+      transition: color 0.2s;
+    }
+    .link-handle {
+      font-size: 0.88rem;
+      color: var(--text);
+      font-weight: 500;
+      margin-top: 0.1rem;
+    }
+    .link-arrow {
+      color: var(--dim);
+      font-size: 0.75rem;
+      opacity: 0.5;
+      transition: color 0.2s, opacity 0.2s;
+    }
+
+    /* ─── FOOTER ────────────────────────────── */
+    .card-footer {
+      margin-top: 2rem;
+      text-align: center;
+      font-size: 0.58rem;
+      color: var(--dim);
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+    }
+  </style>
 </head>
-
 <body>
 
-<div class="container">
+  <div class="card">
+    <div class="card-inner">
 
-    <img src="profile.jpg" class="profile">
+      <!-- Top Row -->
+      <div class="top-row">
+        <div class="monogram">Q</div>
+        <div class="title-block">
+          <div class="name">QOTBI</div>
+          <div class="name-ar">قطبي • مونتير محترف</div>
+        </div>
+      </div>
 
-    <h1>Qotbi Editor</h1>
-    <h2>قطبي – Video Editor</h2>
+      <!-- Role -->
+      <div class="divider">
+        <div class="divider-line"></div>
+        <div class="divider-diamond"></div>
+        <div class="divider-line"></div>
+      </div>
+      <div class="role">Video Editor &nbsp;·&nbsp; مونتاج احترافي</div>
 
-    <p>
-        مونتير فيديو محترف لفيديوهات التيك توك واليوتيوب – تصميم سينمائي وريلز احترافي
-    </p>
+      <!-- Links -->
+      <div class="links">
 
-    <div class="socials">
-        <a href="https://www.tiktok.com/@qotbi.online" target="_blank"><i class="fab fa-tiktok"></i></a>
-        <a href="https://www.youtube.com/@Qotbi_Editor" target="_blank"><i class="fab fa-youtube"></i></a>
-        <a href="https://wa.me/201108791358" target="_blank"><i class="fab fa-whatsapp"></i></a>
+        <a href="https://qotbi.online" target="_blank" rel="noopener" class="link-row">
+          <div class="link-icon">
+            <svg viewBox="0 0 24 24"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.34 6.34 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V9.12a8.16 8.16 0 0 0 4.77 1.52V7.18a4.85 4.85 0 0 1-1-.49z"/></svg>
+          </div>
+          <div class="link-text">
+            <div class="link-platform">تيك توك</div>
+            <div class="link-handle">qotbi.online</div>
+          </div>
+          <div class="link-arrow">←</div>
+        </a>
+
+        <a href="https://www.youtube.com/@Qotbi_Editor" target="_blank" rel="noopener" class="link-row">
+          <div class="link-icon">
+            <svg viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+          </div>
+          <div class="link-text">
+            <div class="link-platform">يوتيوب</div>
+            <div class="link-handle">@Qotbi_Editor</div>
+          </div>
+          <div class="link-arrow">←</div>
+        </a>
+
+        <a href="https://wa.me/201108791358" target="_blank" rel="noopener" class="link-row">
+          <div class="link-icon">
+            <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg>
+          </div>
+          <div class="link-text">
+            <div class="link-platform">واتساب</div>
+            <div class="link-handle">01108791358</div>
+          </div>
+          <div class="link-arrow">←</div>
+        </a>
+
+      </div>
+
+      <!-- Footer -->
+      <div class="card-footer">qotbi.online &nbsp;◆&nbsp; 2025</div>
+
     </div>
-
-</div>
-
-<footer>
-    © 2026 Qotbi Editor – All Rights Reserved
-</footer>
+  </div>
 
 </body>
 </html>
